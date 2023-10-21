@@ -6,16 +6,6 @@
         <button @click="textStyle.backgroundColor = 'yellow'">YELLOW</button>
         <button @click="showText = !showText">SHOW/HIDE</button>
     </div>
-    <br/>
-    <div>
-        <ul v-if="schools.length > 0">
-            <li v-for="school in schools" :key="school">
-                <span :style="textStyle">{{ school }}</span>
-            </li>
-        </ul>
-        <p v-else>Não há escolas disponiveis</p>
-
-    </div>
 </template>
 
 <script>

@@ -1,11 +1,13 @@
 <script setup>
-  import schools from './components/school.vue'
+  import styleVue from './components/school.vue'
+  import School from './components/schoolList.vue'
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-      <schools/>
+      <styleVue/>
+      <school/>
     </div>
   </header>
 
