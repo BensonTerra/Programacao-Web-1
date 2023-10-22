@@ -25,7 +25,7 @@ export default {
             schools: ["ESMAD","ISEP", "ESE", "ISCAP", "ESTG", "ESS", "ESHT"],
         }
     },
-
+    
 }
 </script>
 

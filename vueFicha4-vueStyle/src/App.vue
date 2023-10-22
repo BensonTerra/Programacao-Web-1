@@ -1,13 +1,13 @@
 <script setup>
   import styleVue from './components/school.vue'
-  import School from './components/schoolList.vue'
+  import SchoolList from './components/schoolList.vue'
 </script>
 
 <template>
   <header>
     <div class="wrapper">
       <styleVue/>
-      <school/>
+      <SchoolList/>
     </div>
   </header>
 
