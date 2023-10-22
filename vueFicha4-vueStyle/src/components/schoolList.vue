@@ -23,7 +23,7 @@ export default {
             this.schools.push("esmad")
         }
     },
-    
+    v
 }
 </script>
 
