@@ -21,8 +21,6 @@ export default {
                 display: "block"
             },
             showText: true,
-            //Parte 2 da ficha
-            schools: ["ESMAD","ISEP", "ESE", "ISCAP", "ESTG", "ESS", "ESHT"],
         }
     },
     
