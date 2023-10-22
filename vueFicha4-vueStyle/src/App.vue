@@ -1,6 +1,7 @@
 <script setup>
   import styleVue from './components/school.vue'
   import SchoolList from './components/schoolList.vue'
+  import teams from './components/teams.vue'
 </script>
 
 <template>
@@ -8,6 +9,7 @@
     <div class="wrapper">
       <styleVue/>
       <SchoolList/>
+      <teams/>
     </div>
   </header>
 
