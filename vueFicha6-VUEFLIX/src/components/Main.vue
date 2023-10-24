@@ -41,10 +41,37 @@ export default {
     },
     methods: {
         addMovie() {
-            console.clear()
             console.log(`${this.movie.name}||${this.movie.category}||${this.movie.score}`)
+            
+            const newMovie = { ...this.movie };
 
-        }
+            this.movies.push(newMovie);console.table(this.movies)
+
+            this.movie = {
+            name: "",
+            category: "",
+            score: 0
+            }
+            
+           this.addTestMovies()
+        },
+        addTestMovies() {
+        const testMovies = [
+            { name: "Filme 1", category: "Romance", score: 7.5 },
+            { name: "Filme 2", category: "Comedy", score: 8.0 },
+            { name: "Filme 3", category: "Terror", score: 6.8 },
+            { name: "Filme 4", category: "Mystery", score: 7.2 }
+            ];
+
+            for (const testMovie of testMovies) {
+            this.movies.push(testMovie);
+            }
+
+            console.table(this.movies);
+        },
+        mounted () {
+            this.addTestMovies();
+        },
     },
 
 }
