@@ -35,8 +35,6 @@ export default {
             selected: "",
             categories: ["Romance", "Comedy", "Terror", "mistery"], //Genêros dos filmes
             movies: [], //Array para os filmes inseridos
-            
-
         }
     },
     methods: {
@@ -47,31 +45,30 @@ export default {
 
             this.movies.push(newMovie);console.table(this.movies)
 
-            this.movie = {
-            name: "",
-            category: "",
-            score: 0
+            this.movie = 
+            {
+                name: "",
+                category: "",
+                score: 0
             }
             
            this.addTestMovies()
         },
         addTestMovies() {
-        const testMovies = [
+        const testMovies = 
+        [
             { name: "Filme 1", category: "Romance", score: 7.5 },
             { name: "Filme 2", category: "Comedy", score: 8.0 },
             { name: "Filme 3", category: "Terror", score: 6.8 },
             { name: "Filme 4", category: "Mystery", score: 7.2 }
-            ];
+        ];
 
             for (const testMovie of testMovies) {
             this.movies.push(testMovie);
             }
 
             console.table(this.movies);
-        },
-        mounted () {
-            this.addTestMovies();
-        },
+        }
     },
 
 }
