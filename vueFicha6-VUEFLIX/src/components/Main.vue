@@ -19,6 +19,7 @@
         </p>
         <button type="submit">Submit</button>
     </form>
+    <button @click="addTestMovies">addTeste</button>
 </template>
 
 
@@ -43,16 +44,10 @@ export default {
             
             const newMovie = { ...this.movie };
 
-            this.movies.push(newMovie);console.table(this.movies)
+            console.table(this.movies.map(movie => movie.name.toLowerCase()).indexOf(newMovie.name.toLocaleLowerCase()));//se o elemento encontra-se inserido ou não
 
-            this.movie = 
-            {
-                name: "",
-                category: "",
-                score: 0
-            }
-            
-           this.addTestMovies()
+            //console.log(`${this.movies}`)
+        
         },
         addTestMovies() {
         const testMovies = 
