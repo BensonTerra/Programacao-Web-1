@@ -15,11 +15,38 @@
         </p>
         <p>
             <label for="txtScore">SCORE: </label>
-            <input type="number" v-model="movie.score">
+            <input type="number" min="0" max="10" v-model="movie.score">
         </p>
         <button type="submit">Submit</button>
     </form>
-    <button @click="addTestMovies">addTeste</button>
+
+    <div>
+        <button @click="addTestMovies">addTeste</button>
+    </div>
+
+    <br>
+    <p v-if="msgAlert == true">O filme já foi inserido</p>
+    <br>
+    
+
+
+    <table>
+        <thead>
+            <tr>
+                <th @click="movies.sort(sortByName)">Name</th>
+                <th>Category</th>
+                <th @click="movies.sort(sortByScore)">Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="movie in movies" :key="movie">
+                <td>{{ movie.name }}</td>
+                <td>{{ movie.category }}</td>
+                <td>{{ movie.score }}</td>
+            </tr>
+        </tbody>
+    </table>
+
 </template>
 
 
@@ -36,17 +63,43 @@ export default {
             selected: "",
             categories: ["Romance", "Comedy", "Terror", "mistery"], //Genêros dos filmes
             movies: [], //Array para os filmes inseridos
+            msgAlert: false
         }
     },
     methods: {
         addMovie() {
-            console.log(`${this.movie.name}||${this.movie.category}||${this.movie.score}`)
+            //console.log(`${this.movie.name}|${this.movie.category}|${this.movie.score}`)
             
             const newMovie = { ...this.movie };
 
-            console.table(this.movies.map(movie => movie.name.toLowerCase()).indexOf(newMovie.name.toLocaleLowerCase()));//se o elemento encontra-se inserido ou não
+            if(!this.movies.map(movie => movie.name.toLowerCase()).includes(newMovie.name.toLowerCase()))//se o elemento encontra-se inserido ou não
+            {
+                this.movies.push(newMovie);//console.table(this.movies)
 
-            //console.log(`${this.movies}`)
+                this.movie = 
+                {
+                    name: "",
+                    category: "",
+                    score: 0
+                }
+            }
+            else
+            {
+                console.log("Error")
+                this.msgAlert = true
+                this.movie = 
+                {
+                    name: "",
+                    category: "",
+                    score: 0
+                }
+                setTimeout(() => 
+                {
+                    this.msgAlert = false
+                }, 2500);
+
+            }
+            
         
         },
         addTestMovies() {
@@ -62,13 +115,44 @@ export default {
             this.movies.push(testMovie);
             }
 
-            console.table(this.movies);
-        }
+            //console.table(this.movies);
+        },
+        sortByName(a,b){
+            //console.table(this.movies)
+            return a.name.localeCompare(b.name);
+        },
+        sortByScore(a,b){
+            //console.table(this.movies)
+            return a.score - b.score;
+        },
     },
 
 }
 </script>
 
 <style>
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc; /* Adiciona uma borda esquerda na tabela */
+  border-right: 1px solid #ccc; /* Adiciona uma borda direita na tabela */
+}
 
+th, td {
+  padding: 10px;
+  text-align: center; /* Centraliza o texto */
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc; /* Adiciona uma borda esquerda nas células */
+}
+
+th:last-child, td:last-child {
+  border-right: none; /* Remove a borda direita da última coluna */
+}
+
+thead {
+  background-color: #000000;
+  color: #ffffff; /* Define a cor do texto no cabeçalho */
+}
 </style>
