@@ -8,9 +8,7 @@
       class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
     >
       <a href="/" class="flex items-center">
-        <span
-          class="self-center text-3xl font-bold whitespace-nowrap dark:text-white"
-          >Testing</span
+        <span class="self-center text-3xl font-bold whitespace-nowrap dark:text-white">Projeto</span
         >
       </a>
       <button
