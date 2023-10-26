@@ -24,34 +24,61 @@
         <button @click="addTestMovies">addTeste</button>
     </div>
 
-    <br>
-    <p v-if="msgAlert == true">O filme já foi inserido</p>
-    <br>
+    <div>
+        <p v-if="msgAlert == true">O filme já foi inserido</p>
+    </div>
     
+    <p>Tabela 1</p>
+    <p>
+        <label for="txtFilterName">Filter by name: </label>
+        <input type="text" id="txtFilterName" v-model="filterName">
+        <table>
+            <thead>
+                <tr>
+                    <th @click="movies1.sort(sortByName)">Name</th>
+                    <th>Category</th>
+                    <th @click="movies1.sort(sortByScore)">Score</th>
+                    <th>Functions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="movie in filteredMovies" :key="movie">
+                    <td>{{ movie.name }}</td>
+                    <td>{{ movie.category }}</td>
+                    <td>{{ movie.score }}</td>
+                    <td><button @click="removeSerie(movie.name)">REMOVE</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </p>
 
-
-    <table>
-        <thead>
-            <tr>
-                <th @click="movies.sort(sortByName)">Name</th>
-                <th>Category</th>
-                <th @click="movies.sort(sortByScore)">Score</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="movie in movies" :key="movie">
-                <td>{{ movie.name }}</td>
-                <td>{{ movie.category }}</td>
-                <td>{{ movie.score }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <p>Tabela 2</p>
+    <p>
+        <table>
+            <thead>
+                <tr>
+                    <th @click="movies2.sort(sortByName)">Name</th>
+                    <th>Category</th>
+                    <th @click="movies2.sort(sortByScore)">Score</th>
+                    <th>Functions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="movie in movies2" :key="movie">
+                    <td>{{ movie.name }}</td>
+                    <td>{{ movie.category }}</td>
+                    <td>{{ movie.score }}</td>
+                    <td><button @click="removeSerie(movie.name)">REMOVE</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </p>
 
 </template>
 
-
 <script>
-export default {
+export default 
+{
     data() {
         return {
             movie: 
@@ -62,8 +89,10 @@ export default {
             },
             selected: "",
             categories: ["Romance", "Comedy", "Terror", "mistery"], //Genêros dos filmes
-            movies: [], //Array para os filmes inseridos
-            msgAlert: false
+            movies1: [], //Array para os filmes inseridos
+            movies2: [], //Array para os filmes inseridos
+            msgAlert: false,
+            filterName: ""
         }
     },
     methods: {
@@ -72,9 +101,10 @@ export default {
             
             const newMovie = { ...this.movie };
 
-            if(!this.movies.map(movie => movie.name.toLowerCase()).includes(newMovie.name.toLowerCase()))//se o elemento encontra-se inserido ou não
+            //if(!this.movies.map(movie => movie.name.toLowerCase()).includes(newMovie.name.toLowerCase())) //se o elemento encontra-se inserido ou não
+            if(!this.movies1.some( movie => movie.name.toLowerCase() == newMovie.name.toLowerCase()))
             {
-                this.movies.push(newMovie);//console.table(this.movies)
+                this.movies1.push(newMovie);//console.table(this.movies)
 
                 this.movie = 
                 {
@@ -99,7 +129,7 @@ export default {
                 }, 2500);
 
             }
-            
+            this.movies1.sort(this.sortByScore)
         
         },
         addTestMovies() {
@@ -111,48 +141,68 @@ export default {
             { name: "Filme 4", category: "Mystery", score: 7.2 }
         ];
 
-            for (const testMovie of testMovies) {
-            this.movies.push(testMovie);
+            for (const testMovie of testMovies) 
+            {
+                //this.movies1.push(testMovie);
+                this.movies2.push(testMovie);
             }
 
             //console.table(this.movies);
         },
         sortByName(a,b){
-            //console.table(this.movies)
+            //console.table(this.movies2)
             return a.name.localeCompare(b.name);
         },
         sortByScore(a,b){
-            //console.table(this.movies)
-            return a.score - b.score;
+            //console.table(this.movies2)
+            return b.score - a.score;
         },
-    },
+        removeSerie(name) {
+            if(confirm(`Are you sure you want to remove ${ name }?`))
+            {
+                this.movies1 = this.movies1.filter( movie => movie.name != name)
+            }
 
+        },
+        saveMovies() {
+            localStorage.movies = JSON.stringify(this.movies1)
+        }
+    },
+    computed: {
+        filteredMovies() {
+            return this.movies1.sort(this.sortByScore).filter( movie => movie.name.toLowerCase().includes(this.filterName)) 
+        }
+    },
+    created () {
+        window.addEventListener("beforeunload", this.saveMovies);
+        this.movies1 = localStorage.movies ? JSON.parse(localStorage.movies) : []
+    }
 }
 </script>
 
 <style>
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-top: 1px solid #ccc;
-  border-left: 1px solid #ccc; /* Adiciona uma borda esquerda na tabela */
-  border-right: 1px solid #ccc; /* Adiciona uma borda direita na tabela */
-}
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc; /* Adiciona uma borda esquerda na tabela */
+    border-right: 1px solid #ccc; /* Adiciona uma borda direita na tabela */
+    }
 
-th, td {
-  padding: 10px;
-  text-align: center; /* Centraliza o texto */
-  border-bottom: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  border-left: 1px solid #ccc; /* Adiciona uma borda esquerda nas células */
-}
+    th, td {
+    padding: 10px;
+    text-align: center; /* Centraliza o texto */
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc; /* Adiciona uma borda esquerda nas células */
+    }
 
-th:last-child, td:last-child {
-  border-right: none; /* Remove a borda direita da última coluna */
-}
+    th:last-child, td:last-child {
+    border-right: none; /* Remove a borda direita da última coluna */
+    }
 
-thead {
-  background-color: #000000;
-  color: #ffffff; /* Define a cor do texto no cabeçalho */
-}
+    thead {
+    background-color: #000000;
+    color: #ffffff; /* Define a cor do texto no cabeçalho */
+    }
 </style>
