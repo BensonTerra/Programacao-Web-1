@@ -1,5 +1,5 @@
 <template>
-    <h1>About</h1>
+    <h1 class="d-flex align-center justify-center">Pagina de teste sobre animais</h1>
 </template>
 
 <script>

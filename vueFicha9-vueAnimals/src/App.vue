@@ -4,15 +4,15 @@ import headerVue from './components/header.vue'
 </script>
 
 <template>
-  <v-app>
-    <headerVue>
+  <v-app >
+    <headerVue/>
       <v-main class="d-flex align-center justify-center">
-        <router-view/>
+        <RouterView />
       </v-main>
-    </headerVue>
+
   </v-app>
 
-  <RouterView />
+
 </template>
 
 <style scoped>
