@@ -18,7 +18,8 @@ export default {
             [
                 {username: "Rui", password: 12345},
                 {username: "Maria", password: 54321},
-            ]
+            ],
+            
         }
     },
     created() 
