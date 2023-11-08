@@ -1,11 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import headerVue from './components/header.vue'
-/*
-const teste = () => {
-  localStorage.setItem('teste', "teste")
-}
-*/
 </script>
 
 <template>
