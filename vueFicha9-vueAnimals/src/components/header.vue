@@ -10,7 +10,30 @@
 <script>
 import { RouterLink } from 'vue-router'
 
-export default {}
+export default {
+    data() 
+    {
+        return {
+            users: 
+            [
+                {username: "Rui", password: 12345},
+                {username: "Maria", password: 54321},
+            ]
+        }
+    },
+    created() 
+    {
+        if (localStorage.getItem('Users') == null) 
+        {
+            localStorage.setItem("Users", JSON.stringify(this.users))
+        }
+        else
+        {
+            console.log("Users ja criado")
+        }
+    }
+
+}
 </script>
 
 <style>
