@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import aboutView from '../views/AboutView.vue'
 import animals from '../views/animalListView.vue'
+import loginView from '../views/loginView.vue'
 import animal from '../views/animalView.vue'
+import pageNotFoundView from '../views/pageNotFoundView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,9 +25,19 @@ const router = createRouter({
       component: animals
     },
     {
+      path: '/login',
+      name: 'login',
+      component: loginView
+    },
+    {
       path: '/animal',
       name: 'animal',
       component: animal
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'pagenotfound',
+      component: pageNotFoundView
     }
   ]
 })

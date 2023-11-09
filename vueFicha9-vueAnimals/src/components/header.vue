@@ -3,7 +3,7 @@
         <router-link :to="{name: 'home'}" class="pr-3">Home</router-link>
         <router-link :to="{name: 'about'}" class="pr-3">About</router-link>
         <router-link :to="{name: 'animals'}" class="pr-3">Catalog</router-link>
-        <router-link :to="{name: 'animal'}" class="pr-3">Login</router-link>
+        <router-link :to="{name: 'login'}" class="pr-3">Login</router-link>
     </v-app-bar>
 </template>
 
@@ -31,7 +31,7 @@ export default {
                     id: 2,
                     name: "leão",
                     desc: "Mamífero carnívoro pertencente à família dos felinos, conhecido cientificamente como Panthera leo.",
-                    image: "https://tinyurl.com/3tck98xm"
+                    image: "https://tinyurl.com/w5utf6u5"
                 },
                 {
                     id: 3,
