@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atualização de Hora e Tabela</title>
+</head>
+<body>
+
+  <h1>Hora Atual e Tabela</h1>
+
+  <p id="current-time"></p>
+
+  <table id="data-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Hora de Atualização</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Item 1</td>
+        <td id="update-time-1">-</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Item 2</td>
+        <td id="update-time-2">-</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    // Função para obter a hora atual
+    function getCurrentTime() {
+      const now = new Date();
+      const hours = now.getHours(); //Usar
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+      return `${hours}:${minutes}:${seconds}`;
+    }
+
+    // Função para atualizar a tabela com a hora atual
+    function updateTable() {
+      const currentTime = getCurrentTime();
+
+      // Atualiza a hora para cada linha na tabela
+      for (let i = 1; i <= 2; i++) {
+        const updateTimeCell = document.getElementById(`update-time-${i}`);
+        if (updateTimeCell) {
+          updateTimeCell.textContent = currentTime;
+        }
+      }
+
+      // Atualiza o parágrafo com a hora atual
+      const currentTimeParagraph = document.getElementById('current-time');
+      if (currentTimeParagraph) {
+        currentTimeParagraph.textContent = `Hora Atual: ${currentTime}`;
+      }
+    }
+
+    // Atualiza a tabela a cada segundo
+    setInterval(updateTable, 1000);
+
+    // Atualiza a tabela quando a página é carregada
+    window.addEventListener('load', updateTable);
+  </script>
+
+</body>
+</html>
