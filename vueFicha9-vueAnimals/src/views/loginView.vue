@@ -23,10 +23,11 @@ export default {
         login() {
             this.user = JSON.parse(localStorage.Users)
             this.user = this.user.find( user => user.username.toLowerCase() == this.username.toLowerCase() && user.password == this.password)
+            console.table(this.user)
 
+            /*
             if (this.user)
             {
-              console.table(this.user)
               localStorage.LoggedUser = JSON.stringify(this.user)
               //this.$router.push({name: "animals"})
               
@@ -35,6 +36,7 @@ export default {
             {
               alert("invalid user")
             }
+            */
         }
     },
 
