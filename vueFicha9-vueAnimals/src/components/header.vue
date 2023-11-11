@@ -4,20 +4,20 @@
         <router-link :to="{name: 'about'}" class="pr-3">About</router-link>
         <router-link :to="{name: 'animals'}" class="pr-3">Catalog</router-link>
         <router-link :to="{name: 'login'}" class="pr-3">Login</router-link>
+        <button><p>logoff</p></button>
     </v-app-bar>
 </template>
 
 <script>
 import { RouterLink } from 'vue-router'
-
 export default {
     data() 
     {
         return {
             users: 
             [
-                {username: "Rui", password: 12345},
-                {username: "Maria", password: 54321},
+                {username: "Rui", password: "12345"},
+                {username: "Maria", password: "54321"},
             ],
             animals:
             [
@@ -45,11 +45,7 @@ export default {
                     desc: " O golfinho é um mamífero marinho pertencente à ordem dos cetáceos, especificamente da família Delphinidae. Eles são conhecidos por sua natureza inteligente, habilidades sociais avançadas e pela sua agilidade na água",
                     image: "https://tinyurl.com/mr3u3yje"
                 },
-            ]
-
-
-
-
+            ],
         }
     },
     created() 
@@ -71,9 +67,8 @@ export default {
         {
             console.log("Animals ja criado")
         }
-    }
-
-}
+    },
+};
 </script>
 
 <style>

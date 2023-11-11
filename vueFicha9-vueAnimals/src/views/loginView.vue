@@ -1,19 +1,11 @@
 <template>
   <v-sheet width="300" class="mx-auto">
     <v-form @submit.prevent="login">
-      <v-text-field
-        v-model="firstName"
-        label="First name"
-        :rules="firstNameRules"
-      ></v-text-field>
+      <v-text-field v-model="username" label="Username"></v-text-field>
 
-      <v-text-field
-        v-model="lastName"
-        label="Last name"
-        :rules="lastNameRules"
-      ></v-text-field>
+      <v-text-field v-model="password" label="Password"></v-text-field>
 
-      <v-btn type="submit" block class="mt-2">Submit</v-btn>
+      <v-btn type="submit" block class="mt-2">Login</v-btn>
     </v-form>
   </v-sheet>
 </template>
@@ -22,19 +14,30 @@
 export default {
     data() {
         return {
+            user: [],
             username: "",
             password: "",
         }
     },
     methods: {
         login() {
-            const user = JSON.parse(localStorage.Users).
-            find( user =>
+            this.user = JSON.parse(localStorage.Users)
+            this.user = this.user.find( user => user.username.toLowerCase() == this.username.toLowerCase() && user.password == this.password)
+
+            if (this.user)
             {
-                user.username =  
-            })
+              console.table(this.user)
+              localStorage.LoggedUser = JSON.stringify(this.user)
+              //this.$router.push({name: "animals"})
+              
+            }
+            else
+            {
+              alert("invalid user")
+            }
         }
     },
+
 
 }
 </script>

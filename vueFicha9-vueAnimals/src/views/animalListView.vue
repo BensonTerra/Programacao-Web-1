@@ -36,19 +36,19 @@
 </template>
 
 <script>
+
   export default {
     data()
     {
       return {
         users: [],
         animals: [],
-        show: false
       }
     },
     created () {
       this.users = JSON.parse(localStorage.getItem("Users"))
       this.animals = JSON.parse(localStorage.getItem("Animals"))
-      console.log(this.animals[0])
+      
     },
   }
 </script>
