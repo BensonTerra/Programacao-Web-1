@@ -47,7 +47,7 @@ export default {
     // Carregando dados do localStorage quando o componente é criado
     const storedWeatherData = localStorage.getItem("weatherLocal"); //console.log(storedWeatherData)
     if (storedWeatherData) {
-      this.weatherData = JSON.parse(storedWeatherData);//console.log(this.weatherData)
+      this.weatherData = JSON.parse(storedWeatherData);console.log(this.weatherData)
     }
   }
 };
