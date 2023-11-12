@@ -35,7 +35,7 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.weatherData = data;
-          localStorage.setItem("weatherData", JSON.stringify(this.weatherData));
+          localStorage.setItem("weatherLocal", JSON.stringify(this.weatherData));
         })
         .catch(error => {
           console.error('Error fetching weather data:', error);
@@ -53,5 +53,61 @@ export default {
 };
 </script>
 
-<style>
+
+<style scoped>
+  h1 {
+    text-align: center;
+    color: #333; /* Cor do título principal */
+  }
+
+  label {
+    display: block;
+    margin-top: 20px;
+    color: #555; /* Cor do rótulo de entrada */
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #000; /* Adicionando uma borda preta de 1px */
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF; /* Cor de fundo do botão */
+    color: #fff; /* Cor do texto do botão */
+    border: none;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0056b3; /* Cor de fundo do botão ao passar o mouse */
+  }
+
+  div {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd; /* Borda da caixa de resultados */
+    border-radius: 5px;
+    background-color: #fff; /* Cor de fundo da caixa de resultados */
+  }
+
+  h2 {
+    color: #007BFF; /* Cor do título secundário */
+  }
+
+  p {
+    margin: 10px 0;
+    color: #333; /* Cor do texto do parágrafo */
+  }
+
+  img {
+    margin-top: -5px; /* Ajuste para o ícone de condição climática não ficar muito alto */
+  }
 </style>
+
