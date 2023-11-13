@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Interativo</title>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        #searchResults {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #searchResults li {
+            cursor: pointer;
+            padding: 5px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+        }
+    </style>
+    <!-- Inclui o Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+
+    <h1 id="location">Localização: </h1>
+    <form onsubmit="return false;">
+        <input type="text" id="search" placeholder="Digite o local desejado">
+        <button onclick="submitSearch()">Buscar</button>
+    </form>
+    <ul id="searchResults"></ul>
+    <div id="map"></div>
+
+    <!-- Inclui o Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        // Cria um mapa Leaflet com visualização inicial no centro do mundo (latitude 0, longitude 0) e zoom 2
+        var map = L.map('map').setView([0, 0], 2);
+        var searchResults = document.getElementById('searchResults');
+        var currentWaypoint = null; // Mantém uma referência ao waypoint atual
+
+        // Adiciona um layer do OpenStreetMap ao mapa
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Adiciona um ouvinte de clique ao mapa para atualizar a localização quando o usuário clica
+        map.on('click', function(e) {
+            updateLocation(e.latlng.lat, e.latlng.lng);
+        });
+
+        // Função para atualizar a tag h1 com as coordenadas da localização selecionada
+        function updateLocation(lat, lng) {
+            document.getElementById('location').textContent = 'Localização: ' + lat + ', ' + lng;
+        }
+
+        // Função chamada ao clicar no botão "Buscar"
+        function submitSearch() {
+            var query = document.getElementById('search').value;
+
+            // Faz uma chamada à API de geocodificação do OpenStreetMap (Nominatim) com a consulta do usuário
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Exibe os resultados da pesquisa
+                    displaySearchResults(data);
+                })
+                .catch(error => console.error('Erro na pesquisa:', error));
+        }
+
+        // Função para exibir os resultados da pesquisa em uma lista suspensa
+        function displaySearchResults(results) {
+            // Limpa os resultados anteriores
+            searchResults.innerHTML = '';
+
+            // Exibe os novos resultados em uma lista suspensa
+            results.forEach(result => {
+                var listItem = document.createElement('li');
+                listItem.textContent = result.display_name;
+                listItem.onclick = function() {
+                    // Ao clicar em um resultado, ajusta o mapa para exibir as coordenadas do resultado e define automaticamente o zoom
+                    var bounds = [[result.boundingbox[0], result.boundingbox[2]], [result.boundingbox[1], result.boundingbox[3]]];
+                    map.fitBounds(bounds);
+                    // Remove o waypoint anterior, se existir
+                    if (currentWaypoint) {
+                        map.removeLayer(currentWaypoint);
+                    }
+                    // Adiciona um novo waypoint (marcador) ao local pesquisado
+                    addWaypoint(result.lat, result.lon);
+                    // Atualiza a tag h1 com as coordenadas da localização selecionada
+                    updateLocation(result.lat, result.lon);
+                    // Limpa a lista após selecionar um resultado
+                    searchResults.innerHTML = '';
+                };
+                searchResults.appendChild(listItem);
+            });
+        }
+
+        // Função para adicionar um waypoint (marcador) ao local pesquisado
+        function addWaypoint(lat, lng) {
+            // Adiciona um novo marcador (waypoint) ao local pesquisado
+            currentWaypoint = L.marker([lat, lng]).addTo(map);
+
+            // Adiciona um pop-up ao waypoint
+            currentWaypoint.bindPopup('Waypoint: ' + lat + ', ' + lng);
+        }
+
+    </script>
+
+</body>
+</html>
