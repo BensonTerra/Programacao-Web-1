@@ -1,22 +1,25 @@
 <script>
-  import { useCounterStore} from "@/stores/counter"
-  export default {
-    data() {
-      return {
-        store: useCounterStore()
-      }
-    },
-  }
+import { useCounterStore } from "@/stores/counter";
+export default {
+  data() {
+    return {
+      store: useCounterStore(),
+    };
+  },
+};
 </script>
 
 <template>
   <div>
-    <button @click="store.increment()">Click Me</button>
+
+    <button @click="store.increment">CLICA-ME</button>
     <h1>{{ store.count }}</h1>
-    <h1>{{ store.doubleCount }}</h1>
+  <h2>{{ store.doubleCount }}</h2>
+    <h2>{{ store.doubleCountPlusOne }}</h2>
+
+
+    
+    <h2>{{ store.getUserById(2).name }}</h2>
+  
   </div>
 </template>
-
-<style scoped>
-
-</style>

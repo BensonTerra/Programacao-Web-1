@@ -7,12 +7,14 @@
     <button @click="getWeather">Obter Previsão do Tempo</button>
 
     <div v-if="weatherData">
-      <h2>Previsão do Tempo para {{ weatherData.location.country }}</h2>
-      <p>Temperatura: {{ weatherData.current.temp_c }}°C</p>
-      <p>Condição: {{ weatherData.current.condition.text}}<img src="//cdn.weatherapi.com/weather/64x64/day/116.png" ></p>
-      <p>Vento a {{ weatherData.current.wind_kph }} kph vindo {{ weatherData.current.wind_dir}}</p>
-      <p>Umidade: {{ weatherData.current.humidity}}%</p>
+      <h2>Previsão do Tempo para {{ locationData.country }}</h2>
+      <p>Temperatura: {{ currentData.temp_c }}°C</p>
+      <p>Condição: {{ currentData.condition.text}}<img :src="currentData.condition.icon"></p>
+      <p>Vento a {{ currentData.wind_kph }} kph vindo {{ currentData.wind_dir}}</p>
+      <p>Humidade: {{ currentData.humidity}}%</p>
     </div>
+
+
   </div>
 </template>
 
@@ -22,7 +24,11 @@ export default {
     // Mudança: Removido o objeto data aninhado
     return {
       city: '',
-      weatherData: null
+      weatherData: null,
+      locationData: null,
+      currentData: null,
+      forecastData: null,
+      forecastDaysData: null,
     };
   },
 
@@ -34,8 +40,12 @@ export default {
       fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-          this.weatherData = data;
-          localStorage.setItem("weatherLocal", JSON.stringify(this.weatherData));
+          this.weatherData = data
+          this.locationData = this.weatherData.location
+          this.currentData = this.weatherData.current
+          this.forecastData = this.weatherData.forecast
+          this.forecastDaysData = this.forecastData.forecastday.filter( e => e.date)
+          localStorage.setItem("weatherLocal", JSON.stringify(this.weatherData))
         })
         .catch(error => {
           console.error('Error fetching weather data:', error);
@@ -47,7 +57,11 @@ export default {
     // Carregando dados do localStorage quando o componente é criado
     const storedWeatherData = localStorage.getItem("weatherLocal"); //console.log(storedWeatherData)
     if (storedWeatherData) {
-      this.weatherData = JSON.parse(storedWeatherData);console.log(this.weatherData)
+      this.weatherData = JSON.parse(storedWeatherData); console.log(this.weatherData)
+      this.locationData = this.weatherData.location; console.log(this.locationData)
+      this.currentData = this.weatherData.current; console.log(this.currentData)
+      this.forecastData = this.weatherData.forecast; console.log(this.forecastData)
+      this.forecastDaysData = this.forecastData.forecastday.filter( e => e.date); console.log(this.forecastDaysData)
     }
   }
 };

@@ -1,12 +1,16 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
-export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
+export const useCounterStore = defineStore("counter", {
+  state: () => ({    
+    users: [
+      { id: 1, name: "joao" },
+      { id: 2, name: "rita" },
+    ],
+  }),
+  getters: {
+    getUserById: (state) => (userId) => state.users.find(user=>user.id == userId),    
   }
+});
 
-  return { count, doubleCount, increment }
-})
+
+
