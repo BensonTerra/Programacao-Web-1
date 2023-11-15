@@ -8,7 +8,7 @@
       <mainVue></mainVue>
 
     </v-main>
-    <footer>Powered by <a href="https://www.weatherapi.com/" title="Weather API">WeatherAPI.com</a></footer>
+    <footer style="padding-left: 10px;">Powered by <a href="https://www.weatherapi.com/" title="Weather API">WeatherAPI.com</a></footer>
   </v-app>
   
 </template>
