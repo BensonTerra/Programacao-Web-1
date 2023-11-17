@@ -4,7 +4,10 @@ import AboutView from '../views/AboutView.vue'
 import LoginView from '../views/LoginView.vue'
 import AnimalListView from '../views/AnimalListView.vue'
 import AnimalView from '../views/AnimalView.vue'
+import AddAnimalView from "../views/AddAnimalView.vue";
 import PageNotFoundView from '../views/PageNotFoundView.vue'
+import { useUserStore } from "@/stores/user";
+
 
 
 const router = createRouter({
@@ -34,6 +37,13 @@ const router = createRouter({
       path: "/animals/:id",
       name: "animal",
       component: AnimalView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/addanimal",
+      name: "addanimal",
+      component: AddAnimalView,
+      meta: { requiresAuth: true },
     },
     {
       path: "/:pathMatch(.*)*",
@@ -41,6 +51,20 @@ const router = createRouter({
       component: PageNotFoundView,
     },
   ],
+});
+
+router.beforeEach((to, from) => {
+  // instead of having to check every route record with
+  // to.matched.some(record => record.meta.requiresAuth)
+  if (to.meta.requiresAuth && !useUserStore().isUser) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    return {
+      path: "/login",
+      // save the location we were at to come back later
+      query: { redirect: to.fullPath },
+    };
+  }
 });
 
 export default router

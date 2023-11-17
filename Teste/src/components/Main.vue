@@ -14,7 +14,22 @@
       <p>Humidade: {{ currentData.humidity}}%</p>
     </div>
 
-
+    <table>
+      <thead>
+          <tr>
+            <th>Data</th>
+            <th>Min</th>
+            <th>Max</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr v-for="clima in forecastDaysData" :key="clima">
+              <td>{{ clima.date }}</td>
+              <td>{{ clima.day.mintemp_c }} ºC</td>
+              <td>{{ clima.day.maxtemp_c }} ºC</td>
+          </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -35,7 +50,7 @@ export default {
   methods: {
     getWeather() {
       const apiKey = '4352c2dfabd9496e80c154100231111';
-      const apiUrl = `https://api.weatherapi.com/v1/forecast.json?q=${this.city}&days=1&lang=pt&key=${apiKey}`;
+      const apiUrl = `https://api.weatherapi.com/v1/forecast.json?q=${this.city}&days=3&lang=pt&key=${apiKey}`;
 
       fetch(apiUrl)
         .then(response => response.json())
@@ -123,5 +138,29 @@ export default {
   img {
     margin-top: -5px; /* Ajuste para o ícone de condição climática não ficar muito alto */
   }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc; /* Adiciona uma borda esquerda na tabela */
+    border-right: 1px solid #ccc; /* Adiciona uma borda direita na tabela */
+    }
+
+    th, td {
+    padding: 10px;
+    text-align: center; /* Centraliza o texto */
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc; /* Adiciona uma borda esquerda nas células */
+    }
+
+    th:last-child, td:last-child {
+    border-right: none; /* Remove a borda direita da última coluna */
+    }
+
+    thead {
+    background-color: #000000;
+    color: #ffffff; /* Define a cor do texto no cabeçalho */
+    }
 </style>
 

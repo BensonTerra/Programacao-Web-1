@@ -1,53 +1,63 @@
 <template>
-
-  <v-card class="mx-auto" >
-
-    <v-container fluid>
-      <v-row dense>
-        <v-col v-for="animal in animals" :key="animal" :cols="4">
-          <v-card class="mx-auto px-5" col = "4">
-            <v-img
-              :src="animal.image"
-              height="200px"
-              cover
-            ></v-img>
-
+  <v-container>
+    <v-row>
+      <v-col v-for="animal in animals" :key="animal.id" cols="4">
+        <v-card class="mx-auto" max-width="1400">
+          <v-img
+            class="align-end text-white"
+            height="200"
+            :src="animal.image"
+            cover
+          >
             <v-card-title>{{ animal.name }}</v-card-title>
+          </v-img>
 
-            <v-card-actions>
-              <router-link :to="{name:'animal', params:{id:animal.id}}" tag="v-btn">
-                Explore
-              </router-link>
-              <v-card-text>{{ animal.desc }}</v-card-text>
-            </v-card-actions>
+          <v-card-subtitle class="pt-4"> animal </v-card-subtitle>
 
-            <v-expand-transition>
+          <v-card-text>
+            <div>{{ animal.desc }}</div>
+          </v-card-text>
 
-            </v-expand-transition>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-    
-  </v-card>
-
-
-
+          <v-card-actions>
+            <router-link
+              :to="{ name: 'animal', params: { id: animal.id } }"
+              tag="b-btn"
+            >
+              See more
+            </router-link>
+            <v-btn v-if="isAdmin" @click="remove(animal.id)">REMOVE</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
   import { useAnimalStore } from '@/stores/animal';
-  import { RouterLink } from 'vue-router'
+  import { useUserStore } from '@/stores/user';
+  import { RouterLink } from 'vue-router';
   export default {
-    data()
-    {
+    data() {
       return {
-        store: useAnimalStore(),
-        animals: [],
+        animalStore: useAnimalStore(),
+        userStore: useUserStore()
       }
     },
-    created () {
-      this.animals = this.store.getAnimals;console.log(this.animals)
+    computed: {
+      isAdmin() {
+        return this.userStore.getUser?.type == 'admin' 
+      },
+      animals() {
+        return this.animalStore.getAnimals
+      }
+    },
+    methods: {
+      remove(id) {
+        if (confirm("Deseja mesmo remover o animal?")) {
+          this.animalStore.remove(id)
+        }
+      }
     },
   }
 </script>

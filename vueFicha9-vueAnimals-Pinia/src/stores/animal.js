@@ -4,13 +4,6 @@ export const useAnimalStore = defineStore('animal', {
   state: () =>
   (
     {
-      isUser: false,
-      user: null,
-      users: 
-      [
-        {username: "Rui", password: "12345"},
-        {username: "Maria", password: "54321"},
-      ],
       animals:
       [
         {
@@ -53,7 +46,7 @@ export const useAnimalStore = defineStore('animal', {
       }
       else
       {
-        throwError("User invalid: ")
+        throw Error("User invalid: ")
       }
     },
   },

@@ -1,17 +1,48 @@
 <template>
-    <v-app-bar title="VueAnimals">
-        <router-link :to="{name: 'home'}" class="pr-3">Home</router-link>
-        <router-link :to="{name: 'about'}" class="pr-3">About</router-link>
-        <router-link :to="{name: 'animals'}" class="pr-3">Catalog</router-link>
-        <router-link :to="{name: 'login'}" class="pr-3">Login</router-link>
-        <button><p>logoff</p></button>
-    </v-app-bar>
+  <v-app-bar title="VUEANIMALS2">
+    <RouterLink :to="{ name: 'home' }">Home</RouterLink>
+    <span class="pr-3"></span>
+    <RouterLink :to="{ name: 'about' }">About</RouterLink>
+    <span class="pr-3"></span>
+    <RouterLink :to="{ name: 'animals' }">Catalog</RouterLink>
+    <span class="pr-3"></span>
+    <RouterLink :to="{ name: 'addanimal' }" v-if="isAdmin">Add animal</RouterLink>
+    <RouterLink :to="{ name: 'login' }" v-if="!isUser">Login</RouterLink>
+    
+    <span v-else>
+      Olá, {{ name }}
+      <button @click="logout">logout</button>
+    </span>
+    <span class="pr-3"></span>
+  </v-app-bar>
 </template>
 
 <script>
-import { RouterLink } from 'vue-router'
+import { useUserStore } from "@/stores/user";
+import { RouterLink } from "vue-router";
 export default {
-
+    data() {
+        return {
+      store: useUserStore()
+    };
+  },
+  computed: {
+    name() {
+      return this.store.getUser?.username 
+    },
+    isUser() {
+      return this.store.isUser
+    },
+    isAdmin() {
+      return this.store.getUser?.type == "admin";
+    },
+  },
+  methods: {
+    logout() {
+      this.store.logout();
+      this.$router.push({ name: "home" });
+    },
+  },
 };
 </script>
 

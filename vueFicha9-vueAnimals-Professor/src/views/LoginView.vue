@@ -2,32 +2,29 @@
   <v-sheet width="300" class="mx-auto">
     <v-form @submit.prevent="login">
       <v-text-field v-model="username" label="Username"></v-text-field>
-
-      <v-text-field v-model="pass" label="Password"></v-text-field>
-
+      <v-text-field v-model="password" label="Password"></v-text-field>
       <v-btn type="submit" block class="mt-2">Login</v-btn>
     </v-form>
   </v-sheet>
 </template>
 
 <script>
+import { useUserStore } from "@/stores/user";
 export default {
   data() {
     return {
+      store: useUserStore(),
       username: "",
-      pass: "",
+      password: "",
     };
   },
   methods: {
     login() {
-      const user = JSON.parse(localStorage.users).find(
-        (user) => user.username == this.username && user.password == this.pass
-      );
-      if (user) {
-        localStorage.loggedUser = JSON.stringify(user);
+      try {
+        this.store.login(this.username, this.password)
         this.$router.push({ name: "animals" });
-      } else {
-        alert("Invalid User!");
+      } catch (error) {
+         alert(`Error: ${error.message}`); 
       }
     },
   },

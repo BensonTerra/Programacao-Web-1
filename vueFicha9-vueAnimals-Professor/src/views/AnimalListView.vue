@@ -19,9 +19,13 @@
           </v-card-text>
 
           <v-card-actions>
-            <router-link :to="{ name: 'animal', params: { id: animal.id } }" tag="b-btn">
+            <router-link
+              :to="{ name: 'animal', params: { id: animal.id } }"
+              tag="b-btn"
+            >
               See more
             </router-link>
+            <v-btn v-if="isAdmin" @click="remove(animal.id)">REMOVE</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -30,12 +34,30 @@
 </template>
 
 <script>
+import { useAnimalStore } from "@/stores/animal";
+import { useUserStore } from "@/stores/user";
 import { RouterLink } from "vue-router";
 export default {
   data() {
     return {
-      animals: JSON.parse(localStorage.animals),
+      animalStore: useAnimalStore(),
+      userStore: useUserStore()
     };
+  },
+  computed: {
+    isAdmin() {
+      return this.userStore.getUser?.type == "admin";
+    },
+    animals() {
+      return this.animalStore.getAnimals
+    }
+  },
+  methods: {
+    remove(id) {
+      if (confirm("Deseja mesmo remover o animal?")) {
+        this.animalStore.remove(id);
+      }
+    },
   },
 };
 </script>

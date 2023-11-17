@@ -1,11 +1,15 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import headerVue from './components/header.vue'
-
+<script>
+import { RouterLink, RouterView } from "vue-router";
+import headerVue from "/components/header.vue";
+export default {
+  components: {
+    headerVue,
+  }
+}
 </script>
 
 <template>
-  <v-app >
+  <v-app>
     <headerVue/>
       <v-main class="d-flex align-center justify-center">
         <RouterView />

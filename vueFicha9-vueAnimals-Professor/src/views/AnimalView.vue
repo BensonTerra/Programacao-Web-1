@@ -9,16 +9,17 @@
 </template>
 
 <script>
+import { useAnimalStore } from "@/stores/animal";
+
 export default {
   data() {
     return {
-      animal: 0,
+      store: useAnimalStore(),
+      animal: null,
     };
   },
   created() {
-    this.animal = JSON.parse(localStorage.animals).find(
-      (animal) => animal.id == this.$route.params.id
-    );
+    this.animal = this.store.getAnimal(this.$route.params.id)    
   },
 };
 </script>
