@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import aboutView from '../views/AboutView.vue'
-import animals from '../views/animalListView.vue'
 import loginView from '../views/loginView.vue'
-import animal from '../views/animalView.vue'
+import animalListView from '../views/animalListView.vue'
+import animalView from '../views/animalView.vue'
+import addAnimalView from '../views/addAnimalView.vue'
 import pageNotFoundView from '../views/pageNotFoundView.vue'
+import { useUserStore } from "@/stores/user"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,19 +22,26 @@ const router = createRouter({
       component: aboutView
     },
     {
-      path: '/animals',
-      name: 'animals',
-      component: animals
-    },
-    {
       path: '/login',
       name: 'login',
       component: loginView
     },
     {
-      path: '/animal',
+      path: '/animals',
+      name: 'animals',
+      component: animalListView
+    },
+    {
+      path: '/animals/:id',
       name: 'animal',
-      component: animal
+      component: animalView,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/addanimal',
+      name: 'addAnimal',
+      component: addAnimalView,
+      meta: { requiresAuth: true }
     },
     {
       path: '/:pathMatch(.*)*',
@@ -41,5 +50,20 @@ const router = createRouter({
     }
   ]
 })
+/**/
+router.beforeEach((to, from) => {
+  // instead of having to check every route record with
+  // to.matched.some(record => record.meta.requiresAuth)
+  if (to.meta.requiresAuth && !useUserStore().isUser) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    return {
+      path: "/login",
+      // save the location we were at to come back later
+      query: { redirect: to.fullPath },
+    };
+  }
+});
+
 
 export default router

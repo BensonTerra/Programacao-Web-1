@@ -6,7 +6,7 @@
     <span class="pr-3"></span>
     <RouterLink :to="{ name: 'animals' }">Catalog</RouterLink>
     <span class="pr-3"></span>
-    <RouterLink :to="{ name: 'addanimal' }" v-if="isAdmin">Add animal</RouterLink>
+    <RouterLink :to="{ name: 'addAnimal' }" v-if="isAdmin">Add animal</RouterLink>
     <RouterLink :to="{ name: 'login' }" v-if="!isUser">Login</RouterLink>
     
     <span v-else>
@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import { useUserStore } from "@/stores/user";
 import { RouterLink } from "vue-router";
+import { useUserStore } from "@/stores/user";
 export default {
     data() {
         return {

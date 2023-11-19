@@ -1,2 +1,0 @@
-criar botao de adicionar/remover animais
-separar store animals e users

@@ -34,35 +34,32 @@
 </template>
 
 <script>
-  import { useAnimalStore } from '@/stores/animal';
-  import { useUserStore } from '@/stores/user';
-  import { RouterLink } from 'vue-router';
-  export default {
-    data() {
-      return {
-        animalStore: useAnimalStore(),
-        userStore: useUserStore()
+import { useAnimalStore } from "@/stores/animal";
+import { useUserStore } from "@/stores/user";
+import { RouterLink } from "vue-router";
+export default {
+  data() {
+    return {
+      animalStore: useAnimalStore(),
+      userStore: useUserStore()
+    };
+  },
+  computed: {
+    isAdmin() {
+      return this.userStore.getUser?.type == "admin";
+    },
+    animals() {
+      return this.animalStore.getAnimals
+    }
+  },
+  methods: {
+    remove(id) {
+      if (confirm("Deseja mesmo remover o animal?")) {
+        this.animalStore.remove(id);
       }
     },
-    computed: {
-      isAdmin() {
-        return this.userStore.getUser?.type == 'admin' 
-      },
-      animals() {
-        return this.animalStore.getAnimals
-      }
-    },
-    methods: {
-      remove(id) {
-        if (confirm("Deseja mesmo remover o animal?")) {
-          this.animalStore.remove(id)
-        }
-      }
-    },
-  }
+  },
+};
 </script>
 
-
-<style>
-
-</style>
+<style lang="scss" scoped></style>

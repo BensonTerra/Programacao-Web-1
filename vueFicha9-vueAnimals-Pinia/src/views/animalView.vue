@@ -1,31 +1,28 @@
 <template>
   <div>
-    <h1>{{ animal.name }}</h1>
-    <p>
-      <img :src="animal.image" alt="">
-    </p>
-    <p>
-      {{ animal.desc }}
-    </p>
+    <h1>{{ animal.name }}</h1>   
+    <p><img :src="animal.image" alt=""></p>    
+    <p>{{ animal.desc }}</p>   
+    <p><v-btn @click="$router.go(-1)"> BACK </v-btn></p>
+    
   </div>
 </template>
 
 <script>
 import { useAnimalStore } from '@/stores/animal';
-import { RouterLink } from 'vue-router'
 export default {
   data() {
     return {
       store: useAnimalStore(),
-      animal: {}
+      animal: null
     }
   },
-  created () {
-    this.animal = this.store.getAnimal(this.$route.params.id)
+  created() {
+    this.animal = this.store.getAnimal(this.$route.params.id);
   },
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

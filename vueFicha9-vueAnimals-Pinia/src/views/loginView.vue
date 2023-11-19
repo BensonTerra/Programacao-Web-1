@@ -11,35 +11,26 @@
 </template>
 
 <script>
+import { useUserStore} from "@/stores/user"
 export default {
     data() {
         return {
+            store: useUserStore(),
             username: "",
             password: "",
         }
     },
     methods: {
-        login() {
-            this.user = JSON.parse(localStorage.Users)
-            this.user = this.user.find( user => user.username.toLowerCase() == this.username.toLowerCase() && user.password == this.password)
-            console.table(this.user)
-
-            /*
-            if (this.user)
-            {
-              localStorage.LoggedUser = JSON.stringify(this.user)
-              //this.$router.push({name: "animals"})
-              
-            }
-            else
-            {
-              alert("invalid user")
-            }
-            */
+      login() {
+        try {
+          this.store.login(this.username, this.password)
+          this.$router.push({name: "animals"})
         }
+        catch(error) {
+          alert(`Error: ${error.message}`)
+        }
+      }
     },
-
-
 }
 </script>
 
