@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     remove(id) {
-      if (confirm("Deseja mesmo remover o animal?")) {
+      if (confirm("Deseja mesmo remover o animal?") == true) {
         this.animalStore.remove(id);
       }
     },
