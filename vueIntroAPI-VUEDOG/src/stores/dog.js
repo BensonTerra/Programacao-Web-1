@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-
 import * as API from "../API/api"
 
 const DOG_API_BASE_URL = 'https://dog.ceo/api'
@@ -7,11 +6,13 @@ const DOG_API_BASE_URL = 'https://dog.ceo/api'
 export const useDogStore = defineStore('dog', {
   state: () => ({
 
-    breeds: []
+    breeds: [],
+    dogImage: ""
 
   }),
   getters: {
-    getBreeds: (state) => state.breeds
+    getBreeds: (state) => state.breeds,
+    getImage: (state) => state.dogImage
   },
   actions: {
     async fetchDogBreeds() 
@@ -24,6 +25,15 @@ export const useDogStore = defineStore('dog', {
       catch (error) 
       {
         throw error
+      }
+    },
+    async fetchDogImageByBreed(breed) {      
+      try {
+        const data = await API.get(DOG_API_BASE_URL,`breed/${breed}/images/random`);
+        this.dogImage = data.message;        
+      } catch (error) {
+        console.error("Error in store fetching dog breeds:", error);
+        throw error;
       }
     }
   },
