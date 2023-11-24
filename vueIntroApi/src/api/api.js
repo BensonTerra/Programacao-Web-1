@@ -1,5 +1,3 @@
-
-
 export async function get(apiBaseUrl, endpoint) {
   try {
     const response = await fetch(`${apiBaseUrl}/${endpoint}`);

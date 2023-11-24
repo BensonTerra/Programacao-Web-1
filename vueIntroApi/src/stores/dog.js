@@ -8,7 +8,7 @@ const OTHER_API_BASE_URL = 'https://other-api.com';
 export const useDogStore = defineStore("dog", {
   state: () => ({
     dogBreeds: [],
-    dogImage:""
+    dogImage: ""
   }),
   getters: {
     getDogBreeds: (state) => state.dogBreeds,
