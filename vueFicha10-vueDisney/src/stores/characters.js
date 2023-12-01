@@ -9,7 +9,8 @@ export const useCharactersStore = defineStore('characters', {
   }),
   getters: {
     getCharacters: (state) => state.characters,
-    getCharacterId: (state) => (id) => state.characters.find( (character) => character._id == id),  },
+    getCharacterId: (state) => (id) => state.characters.find( (character) => character._id == id),  
+  },
   actions: {
     async fetchCharacters() 
     {
