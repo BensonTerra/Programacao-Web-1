@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { useUserStore } from "@/stores/user";
+import { useUserStore } from "../stores/user";
 export default {
   data() {
     return {
@@ -22,13 +22,13 @@ export default {
     login() {
       try {
         this.store.login(this.username, this.password)
-        this.$router.push({ name: "animals" });
+        this.$router.push({ name: "user" });
       } catch (error) {
          alert(`Error: ${error.message}`); 
       }
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped></style>
