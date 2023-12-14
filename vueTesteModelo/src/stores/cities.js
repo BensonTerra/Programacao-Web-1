@@ -10,6 +10,8 @@ export const useCityStore = defineStore("city", {
   }),
   getters: {
     getAllcities: (state) => state.cities,
+
+    //getCityByName: (state) => (name) => 
   },
 
   persist: true,

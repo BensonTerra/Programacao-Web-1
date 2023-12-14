@@ -17,7 +17,7 @@ export default {
       }
       else
       {
-        msg = "ola " + msg
+        msg = "ola "+ msg
         return msg
       }
 
@@ -27,7 +27,7 @@ export default {
     },
   },
   methods: {
-    logut() {
+    logout() {
       this.store.logout();
       this.$router.push({ name: "home" });
     }
@@ -37,7 +37,8 @@ export default {
 
 <template>
   <v-app-bar :title="name">
-    <RouterLink :to="{ name: 'home' }">Home</RouterLink>
+    <v-btn v-if="isUser" @click="logout" class="mr-5">Logout</v-btn>
+    <v-btn v-else><RouterLink :to="{ name: 'home' }" class="mr-5 text-none">Home</RouterLink></v-btn>
   </v-app-bar>
 </template>
 

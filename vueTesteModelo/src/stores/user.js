@@ -17,13 +17,14 @@ export const useUserStore = defineStore("user", {
     login(username, password) {
       console.log(username, password)
       const user = this.users.find(
-        (user) => user.username == username
+        (user) => user.username == username && user.password == password
       );
       console.log(user);
       if (user) {
         this.isUserAuthenticated = true;
         this.user = user;
-      } else {
+      } 
+      else {
         throw Error("User invalid!");
       }
     },
@@ -31,6 +32,7 @@ export const useUserStore = defineStore("user", {
       this.isUserAuthenticated = false;
       this.user = null;
     },
-  },  
+  },
+
   persist: true,
 });

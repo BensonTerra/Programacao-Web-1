@@ -15,10 +15,12 @@ const router = createRouter({
     {
       path: '/user',
       name: 'user',
-      component: HomeUser
+      component: HomeUser,
+      meta: {requiresAuth: true}
     },
   ]
 })
+
 
 router.beforeEach((to, from) => {
   // instead of having to check every route record with
@@ -27,11 +29,12 @@ router.beforeEach((to, from) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     return {
-      path: "/login",
+      path: "/",
       // save the location we were at to come back later
       query: { redirect: to.fullPath },
     };
   }
 });
+
 
 export default router

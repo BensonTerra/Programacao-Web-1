@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col v-for="city in cities" :key="city.id" cols="4">
+      <v-col v-for="city in cities" :key="city.name" cols="4">
 
         <v-card class="mx-auto" max-width="1400">
           <v-img
@@ -13,7 +13,7 @@
             <v-card-title>{{ city.name }}</v-card-title>
           </v-img>
 
-          <v-card-subtitle class="pt-4"> animal </v-card-subtitle>
+          <v-card-subtitle class="pt-4"></v-card-subtitle>
 
           <v-card-text>
             <div>{{ city.desc }}</div>
@@ -34,6 +34,10 @@ import { useCityStore } from "@/stores/cities"
 import { useUserStore } from "@/stores/user";
 import { RouterLink } from "vue-router";
 export default {
+  /*
+  components: {
+    City,
+  },*/
   data() {
     return {
       cityStore: useCityStore(),

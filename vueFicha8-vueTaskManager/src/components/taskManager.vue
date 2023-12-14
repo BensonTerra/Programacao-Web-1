@@ -32,6 +32,7 @@
         },
         methods: {
             insertTask(task) {
+                console.log("insertTask")
                 this.tasks.push(task);
             },
             updateTask(index) {
