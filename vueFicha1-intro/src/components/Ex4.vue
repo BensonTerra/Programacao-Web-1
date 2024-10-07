@@ -3,7 +3,7 @@
         <h2>{{productName}}</h2>
         <h2 v-html="productDesc"></h2>
         <h2 v-if=" productPrice <= 1000">productPrice: {{ productPrice }}</h2>
-        <h2>productImage: <img src="https://tinyurl.com/2p9dnx68" alt=""></h2>
+        <h2>productImage: <br><img src="https://dell.itpoint.pt/cdn/shop/files/DellXPS1696403_d325998b-ad2d-4df0-a58d-c568e83e4bec.png?v=1712764124&width=1445" alt=""></h2>
         <button @click="reset()">Redo</button>
         <div v-if= "productAvailability">
             <button>Disponivel</button>
@@ -24,7 +24,7 @@ export default
         return {
             productName: "Dell XPS",
             productDesc: "Processador i7<br>Disco SSD 256GB<br> Monitor Samsung 21",
-            productPrice: 1200,
+            productPrice: 1000,
             productAvailability:true
         }
     },
