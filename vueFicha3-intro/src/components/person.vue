@@ -1,9 +1,13 @@
 <template>
     <div>
-        {{ person }}
-        {{ printDataPerson() }}
-        {{ printDataPersonComputed }}
-        {{ getFullNameComputed }}
+        <ul>
+            <li>Primeiro Nome: {{ person.firstName }}</li>
+            <li>Último Nome: {{ person.lastName }}</li>
+            <li>Idade: {{ person.age }}</li>
+        </ul>
+        <button @click="printDataPerson()">Imprimir Dados da Pessoa (Método)</button>
+        <p>{{ printDataPersonComputed }}</p>
+        <p>{{ getFullNameComputed }}</p>
     </div>
 </template>
 
@@ -13,9 +17,9 @@ export default {
         return {
             person:
             {
-            firstName: "Rui",
-            lastName: "Silva",
-            age: 23
+                firstName: "Rui",
+                lastName: "Silva",
+                age: 23
             }
         }
     },
@@ -37,7 +41,7 @@ export default {
     computed: {
         printDataPersonComputed() {
             console.log(`Method--> Nome: ${this.person.firstName} e Idade: ${this.person.age}`);
-            return "A"
+            return `COMPUTED--> NOME: ${this.person.firstName} e IDADE: ${this.person.age}`;
         },
         getFullNameComputed(){
         return `${this.person.firstName} ${this.person.lastName}`
