@@ -37,10 +37,10 @@
             },
             updateTask(index) {
                 if (this.tasks[index].completed) {
-                    alert(`Task ${this.tasks[index].text} completed with success!` )  
+                    alert(`Task ${this.tasks[index].text} was not completed!` )   
                 } 
                 else {
-                    alert(`Task ${this.tasks[index].text} was not completed!` )  
+                    alert(`Task ${this.tasks[index].text} completed with success!` ) 
                 }
             },
             removeAllTasks(){
