@@ -1,27 +1,29 @@
 <script setup>
-    import blogPost from './components/blogPost.vue';
-    import counterManager from './components/counterManager.vue';
-    import Layout from "./components/Layout.vue";
+  import blogPost from './components/blogPost.vue';
+  import counterManager from './components/counterManager.vue';
+  import Layout from "./components/Layout.vue";
 </script>
 
 <template>
 
 
-    <Layout>
+  <Layout>
 
-        <template #header>
-            HEADER
-        </template>
+    <template #header>
+      HEADER
+    </template>
 
-        <template #default>
-            CONTENT
-        </template>
+    <template #default>
+      CONTENT
+    </template>
 
-        <template #footer>
-            FOOTER
-        </template>
+    <template #footer>
+      FOOTER
+    </template>
 
-    </Layout>
+  </Layout>
+
+
 
 </template>
 
