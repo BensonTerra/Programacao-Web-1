@@ -14,14 +14,14 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/about",
-      name: "about",
-      component: AboutView,
-    },
-    {
       path: "/login",
       name: "login",
       component: LoginView,
+    },
+    {
+      path: "/about",
+      name: "about",
+      component: AboutView,
     },
     {
       path: "/:pathMatch(.*)*",
@@ -31,4 +31,20 @@ const router = createRouter({
   ],
 });
 
+
+/*
+router.beforeEach((to, from) => {
+  // instead of having to check every route record with
+  // to.matched.some(record => record.meta.requiresAuth)
+  if (to.meta.requiresAuth && !useUserStore().isUser) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    return {
+      path: "/login",
+      // save the location we were at to come back later
+      query: { redirect: to.fullPath },
+    };
+  }
+});
+*/
 export default router
