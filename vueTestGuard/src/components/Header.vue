@@ -40,6 +40,8 @@ export default {
     <span class="pr-3"></span>
     <RouterLink :to="{ name: 'about' }">About</RouterLink>
     <span class="pr-3"></span>
+    <RouterLink :to="{ name: 'page' }">Page</RouterLink>
+    <span class="pr-3"></span>
     <RouterLink v-if="!userLogged" :to="{ name: 'login' }">Login</RouterLink>
     <span v-else>
       Olá, {{ user.username }}

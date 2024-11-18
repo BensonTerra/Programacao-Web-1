@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import LoginView from '../views/LoginView.vue'
 import PageNotFoundView from '../views/PageNotFoundView.vue'
+import PageView from '../views/PageView.vue'
 
 
 const router = createRouter({
@@ -14,14 +15,20 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/login",
-      name: "login",
-      component: LoginView,
-    },
-    {
       path: "/about",
       name: "about",
       component: AboutView,
+    },
+    {
+      path: "/page",
+      name: "page",
+      component: PageView,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: LoginView,
     },
     {
       path: "/:pathMatch(.*)*",
@@ -32,11 +39,11 @@ const router = createRouter({
 });
 
 
-/*
 router.beforeEach((to, from) => {
+  let isLogged = localStorage.loggedUser ? JSON.parse(localStorage.loggedUser) : null
   // instead of having to check every route record with
   // to.matched.some(record => record.meta.requiresAuth)
-  if (to.meta.requiresAuth && !useUserStore().isUser) {
+  if (to.meta.requiresAuth && !isLogged) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     return {
@@ -46,5 +53,5 @@ router.beforeEach((to, from) => {
     };
   }
 });
-*/
+
 export default router
