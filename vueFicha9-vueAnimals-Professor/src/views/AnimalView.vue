@@ -4,7 +4,6 @@
     <p><img :src="animal.image" alt=""></p>    
     <p>{{ animal.desc }}</p>   
     <p><v-btn @click="$router.go(-1)"> BACK </v-btn></p>
-    
   </div>
 </template>
 
