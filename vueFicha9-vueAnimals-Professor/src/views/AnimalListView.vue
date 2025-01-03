@@ -12,7 +12,7 @@
             <v-card-title>{{ animal.name }}</v-card-title>
           </v-img>
 
-          <v-card-subtitle class="pt-4"> animal </v-card-subtitle>
+          <v-card-subtitle class="pt-4">animal</v-card-subtitle>
 
           <v-card-text>
             <div>{{ animal.desc }}</div>
